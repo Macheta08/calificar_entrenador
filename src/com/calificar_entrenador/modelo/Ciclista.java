@@ -11,24 +11,30 @@ import java.io.Serializable;
  *
  * @author Usuario
  */
-public class Ciclista extends Persona implements Serializable{
-    
-    private double tiempo;
+public class Ciclista extends Persona implements Serializable {
 
-    public Ciclista(double tiempo , String nombre, String cedula, byte edad) {
+    private int tiempo;
+    private Entrenador entrenador;
+
+    public Ciclista(String nombre, String cedula, byte edad, int tiempo) {
         super(nombre, cedula, edad);
         this.tiempo = tiempo;
     }
 
-    
-    public double getTiempo() {
+    public int getTiempo() {
         return tiempo;
     }
 
-    
-    public void setTiempo(double tiempo) {
+    public void setTiempo(int tiempo) {
         this.tiempo = tiempo;
     }
-    
-    
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
 }

@@ -5,7 +5,7 @@
  */
 package com.calificarEntrenador;
 
-import com.calificar_entrenador.modelo.Persona;
+import com.calificar_entrenador.controlador.ControladorEntrenamiento;
 
 /**
  *
@@ -17,9 +17,16 @@ public class CalificarEntrenador {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        Persona persona = new Persona("Andres", "100", (byte)23);
-        System.out.println(persona.toString());
+
+        ControladorEntrenamiento controlEntrenamiento = new ControladorEntrenamiento();
+
+        for (int i = 0; i < controlEntrenamiento.getCiclistas().size(); i++) {
+            System.out.println(controlEntrenamiento.getCiclistas().get(i).toString());
+            System.out.println(controlEntrenamiento.getCiclistas().get(i).getEntrenador().getNombre());
+            controlEntrenamiento.calificarEntrenadores();
+            System.out.println(controlEntrenamiento.getCiclistas().get(i).getEntrenador().getCalificacion());
+        }
+
     }
-    
+
 }

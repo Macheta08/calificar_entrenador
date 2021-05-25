@@ -18,7 +18,19 @@ public class Entrenador extends Persona implements Serializable{
     public Entrenador (String nombre, String cedula, byte edad) {
         super(nombre, cedula, edad);
     }
-    
-    
+
+    /**
+     * @return the calificacion
+     */
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * @param calificacion the calificacion to set
+     */
+    public void setCalificacion(float calificacion) {
+        this.calificacion=(this.calificacion+calificacion)/2;
+    } 
     
 }
