@@ -6,6 +6,7 @@
 package com.calificarEntrenador;
 
 import com.calificar_entrenador.controlador.ControladorEntrenamiento;
+import com.calificar_entrenador.controlador.ControladorUsuario;
 
 /**
  *
@@ -19,12 +20,10 @@ public class CalificarEntrenador {
     public static void main(String[] args) {
 
         ControladorEntrenamiento controlEntrenamiento = new ControladorEntrenamiento();
+        ControladorUsuario controlUsuario = new ControladorUsuario();
 
-        for (int i = 0; i < controlEntrenamiento.getCiclistas().size(); i++) {
-            System.out.println(controlEntrenamiento.getCiclistas().get(i).toString());
-            System.out.println(controlEntrenamiento.getCiclistas().get(i).getEntrenador().getNombre());
-            controlEntrenamiento.calificarEntrenadores();
-            System.out.println(controlEntrenamiento.getCiclistas().get(i).getEntrenador().getCalificacion());
+        for (int i = 0; i < controlUsuario.getUsuarios().size(); i++) {
+            System.out.println(controlUsuario.getUsuarios().get(i).toString());
         }
 
     }
