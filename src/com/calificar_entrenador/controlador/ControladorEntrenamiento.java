@@ -120,6 +120,19 @@ public class ControladorEntrenamiento {
 
         }
     }
+    
+    public ArrayList unirListas(){
+        ArrayList lista = new ArrayList();
+        int limite = 3;
+        for (int i = 0; i < entrenadores.size(); i++) {
+            lista.add(entrenadores.get(i));
+            for (int j = 0; j < limite; j++) {
+                lista.add(ciclistas.get(j));
+            }
+            limite*=2;
+        }
+        return null;
+    }
 
     public ArrayList<Entrenador> getEntrenadores() {
         return entrenadores;

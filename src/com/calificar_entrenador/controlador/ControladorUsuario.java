@@ -83,7 +83,7 @@ public class ControladorUsuario {
         }
 
         if (!validarCorreo(correo)) {
-            throw new UsuarioExcepcion("En el campo usuario debe ingrear un "
+            throw new UsuarioExcepcion("En el campo usuario debe ingresar un "
                     + "correo válido");
         }
 
