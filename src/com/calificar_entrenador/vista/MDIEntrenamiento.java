@@ -15,6 +15,8 @@ import com.calificar_entrenador.modelo.Usuario;
 import java.awt.Container;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +30,7 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
     private final ControladorUsuario controlUsuarios;
     private Usuario usuarioAutenticado;
     private final ControladorEntrenamiento controlEntrenamiento;
+    private int ciclistasAgregados;
 
     public MDIEntrenamiento() {
         initComponents();
@@ -123,6 +126,16 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
 
     }
 
+    public void bloquearMenus() {
+        mnuArchivo.setEnabled(false);
+        mnuInsertar.setEnabled(false);
+    }
+
+    public void desbloquearMenus() {
+        mnuArchivo.setEnabled(true);
+        mnuInsertar.setEnabled(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,7 +165,7 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
         txtCedula = new javax.swing.JTextField();
         lblEdad = new javax.swing.JLabel();
         spnEdad = new javax.swing.JSpinner();
-        Agregar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jifAgregarCiclista = new javax.swing.JInternalFrame();
         lblNombreCiclista = new javax.swing.JLabel();
         txtNombreCiclista = new javax.swing.JTextField();
@@ -160,14 +173,14 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
         txtDocumentoId = new javax.swing.JTextField();
         lblEdadCic = new javax.swing.JLabel();
         spnEdadCic = new javax.swing.JSpinner();
-        Agregar1 = new javax.swing.JButton();
+        btnAgregarCiclista = new javax.swing.JButton();
         lblTiempo = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
-        jSpinner3 = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        spnHoras = new javax.swing.JSpinner();
+        spnMinutos = new javax.swing.JSpinner();
+        spnSegundos = new javax.swing.JSpinner();
+        lblHrs = new javax.swing.JLabel();
+        lblMin = new javax.swing.JLabel();
+        lblSeg = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         mnuListarEntrenadores = new javax.swing.JMenuItem();
@@ -367,10 +380,10 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
 
         lblEdad.setText("Edad");
 
-        Agregar.setText("Agregar");
-        Agregar.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -393,7 +406,7 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
                             .addComponent(spnEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jifAgregarEntrenadorLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(Agregar)))
+                        .addComponent(btnAgregar)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jifAgregarEntrenadorLayout.setVerticalGroup(
@@ -412,8 +425,8 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
                     .addComponent(spnEdad)
                     .addComponent(lblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(Agregar)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addComponent(btnAgregar)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         desktopPane.add(jifAgregarEntrenador);
@@ -434,20 +447,20 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
 
         lblEdadCic.setText("Edad");
 
-        Agregar1.setText("Agregar");
-        Agregar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCiclista.setText("Agregar");
+        btnAgregarCiclista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Agregar1ActionPerformed(evt);
+                btnAgregarCiclistaActionPerformed(evt);
             }
         });
 
         lblTiempo.setText("Tiempo");
 
-        jLabel1.setText("Hrs");
+        lblHrs.setText("Hrs");
 
-        jLabel2.setText("Min");
+        lblMin.setText("Min");
 
-        jLabel3.setText("Seg");
+        lblSeg.setText("Seg");
 
         javax.swing.GroupLayout jifAgregarCiclistaLayout = new javax.swing.GroupLayout(jifAgregarCiclista.getContentPane());
         jifAgregarCiclista.getContentPane().setLayout(jifAgregarCiclistaLayout);
@@ -462,20 +475,20 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
                     .addComponent(lblTiempo))
                 .addGap(31, 31, 31)
                 .addGroup(jifAgregarCiclistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Agregar1)
+                    .addComponent(btnAgregarCiclista)
                     .addComponent(spnEdadCic, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jifAgregarCiclistaLayout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addComponent(lblHrs)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(lblMin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(lblSeg))
                     .addComponent(txtNombreCiclista)
                     .addComponent(txtDocumentoId))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -496,16 +509,17 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
                     .addComponent(spnEdadCic)
                     .addComponent(lblEdadCic, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jifAgregarCiclistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTiempo)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jifAgregarCiclistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHrs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jifAgregarCiclistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTiempo)
+                        .addComponent(spnHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnSegundos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spnMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSeg, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(Agregar1)
+                .addComponent(btnAgregarCiclista)
                 .addGap(39, 39, 39))
         );
 
@@ -638,13 +652,39 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
         jifListarCiclistas.show();
     }//GEN-LAST:event_mnuCiclistasActionPerformed
 
-    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        
-    }//GEN-LAST:event_AgregarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-    private void Agregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Agregar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Agregar1ActionPerformed
+        if (controlEntrenamiento.agregarEntrenador(txtNombreEntrenador.getText(), txtCedula.getText(), (int) spnEdad.getValue()));
+        {
+            if (jifAgregarCiclista.isIcon()) {
+                try {
+                    jifAgregarCiclista.setIcon(false);
+                } catch (PropertyVetoException ex) {
+                    System.out.println("No se pudo restaurar el formulario listar ciclistas");
+                }
+            }
+            jifAgregarEntrenador.doDefaultCloseAction();
+            bloquearMenus();
+            jifAgregarCiclista.show();
+        }
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnAgregarCiclistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCiclistaActionPerformed
+        ciclistasAgregados++;
+        controlEntrenamiento.agregarCiclista(txtNombreCiclista.getText(), txtDocumentoId.getText(), (int) spnEdadCic.getValue(),
+                controlEntrenamiento.transformarTiempoSegundos((int) spnHoras.getValue(), (int) spnMinutos.getValue(), (int) spnSegundos.getValue()));
+        if (ciclistasAgregados < 3) {
+            JOptionPane.showMessageDialog(null, "Ingresado ciclista #" + (ciclistasAgregados));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingresado ciclista #" + (ciclistasAgregados));
+            desbloquearMenus();
+            llenarCiclistas();
+            llenarEntrenadores();
+            jifAgregarCiclista.doDefaultCloseAction();
+        }
+    }//GEN-LAST:event_btnAgregarCiclistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -682,18 +722,12 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregar;
-    private javax.swing.JButton Agregar1;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarCiclista;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JInternalFrame jifAgregarCiclista;
     private javax.swing.JInternalFrame jifAgregarEntrenador;
     private javax.swing.JInternalFrame jifIngresar;
@@ -705,8 +739,11 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
     private javax.swing.JLabel lblDocumentoId;
     private javax.swing.JLabel lblEdad;
     private javax.swing.JLabel lblEdadCic;
+    private javax.swing.JLabel lblHrs;
+    private javax.swing.JLabel lblMin;
     private javax.swing.JLabel lblNombreCiclista;
     private javax.swing.JLabel lblNombreEntrenador;
+    private javax.swing.JLabel lblSeg;
     private javax.swing.JLabel lblTiempo;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu mnuArchivo;
@@ -719,6 +756,9 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuSalir;
     private javax.swing.JSpinner spnEdad;
     private javax.swing.JSpinner spnEdadCic;
+    private javax.swing.JSpinner spnHoras;
+    private javax.swing.JSpinner spnMinutos;
+    private javax.swing.JSpinner spnSegundos;
     private javax.swing.JTable tblCiclistas;
     private javax.swing.JTable tblEntrenadores;
     private javax.swing.JTextField txtCedula;

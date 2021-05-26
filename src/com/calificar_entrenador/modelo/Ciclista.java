@@ -16,7 +16,7 @@ public class Ciclista extends Persona implements Serializable {
     private int tiempo;
     private Entrenador entrenador;
 
-    public Ciclista(String nombre, String cedula, byte edad, int tiempo) {
+    public Ciclista(String nombre, String cedula, int edad, int tiempo) {
         super(nombre, cedula, edad);
         this.tiempo = tiempo;
     }

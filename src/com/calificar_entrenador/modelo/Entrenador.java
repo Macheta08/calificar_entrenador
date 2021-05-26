@@ -15,7 +15,7 @@ public class Entrenador extends Persona implements Serializable{
     
     private float calificacion;
     
-    public Entrenador (String nombre, String cedula, byte edad) {
+    public Entrenador (String nombre, String cedula, int edad) {
         super(nombre, cedula, edad);
     }
 

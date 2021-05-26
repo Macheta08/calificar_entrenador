@@ -14,9 +14,9 @@ import java.io.Serializable;
 public class Persona implements Serializable{
     private String nombre;
     private String cedula;
-    private byte edad;
+    private int edad;
 
-    public Persona(String nombre, String cedula, byte edad) {
+    public Persona(String nombre, String cedula, int edad) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.edad = edad;
@@ -43,12 +43,12 @@ public class Persona implements Serializable{
     }
 
     
-    public byte getEdad() {
+    public int getEdad() {
         return edad;
     }
 
     
-    public void setEdad(byte edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 

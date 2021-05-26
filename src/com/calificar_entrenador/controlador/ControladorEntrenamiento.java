@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +44,7 @@ public class ControladorEntrenamiento {
             br = new BufferedReader(fr);
             String nombre;
             String cedula;
-            byte edad;
+            int edad;
             int tiempo;
             int contador = 0;
             Entrenador entrenador = null;
@@ -54,7 +55,7 @@ public class ControladorEntrenamiento {
                 datos = linea.split(":");
                 nombre = datos[0];
                 cedula = datos[1];
-                edad = Byte.parseByte(datos[2]);
+                edad = Integer.parseInt(datos[2]);
                 if (contador == 0) {
                     entrenador = new Entrenador(nombre, cedula, edad);
                     entrenadores.add(entrenador);
@@ -67,7 +68,7 @@ public class ControladorEntrenamiento {
 
                 contador++;
 
-                if (contador == 4) {
+                if (contador == CANTIDAD_PERSONAS_GRUPO) {
                     contador = 0;
                 }
 
@@ -85,7 +86,7 @@ public class ControladorEntrenamiento {
         }
     }
 
-    public boolean validarCedula(byte edad, String cedula) {
+    public boolean validarCedula(int edad, String cedula) {
         if (edad > 18) {
             for (int i = 0; i < entrenadores.size(); i++) {
                 if (entrenadores.get(i).getCedula().equals(cedula)) {
@@ -121,17 +122,37 @@ public class ControladorEntrenamiento {
         }
     }
     
-    public ArrayList unirListas(){
-        ArrayList lista = new ArrayList();
-        int limite = 3;
-        for (int i = 0; i < entrenadores.size(); i++) {
-            lista.add(entrenadores.get(i));
-            for (int j = 0; j < limite; j++) {
-                lista.add(ciclistas.get(j));
-            }
-            limite*=2;
+    public boolean agregarEntrenador(String nombre, String cedula, int edad){
+        if (nombre.length()>0 && cedula.length()>0 && edad > 18) {
+            Entrenador nuevoEnt = new Entrenador(nombre, cedula, edad);
+            entrenadores.add(nuevoEnt);
+            return true;
         }
-        return null;
+        else{
+            JOptionPane.showMessageDialog(null, "No se agregó el entrenador");
+            return false;
+        }
+    }  
+    
+    public boolean agregarCiclista(String nombre, String cedula, int edad, int tiempo){
+        if (nombre.length()>0 && cedula.length()>0 && edad >12 && edad <=18) {
+            Ciclista nuevoCic = new Ciclista(nombre, cedula, edad, tiempo);
+            ciclistas.add(nuevoCic);
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No se agregó el ciclista");
+            return false;
+        }
+    }  
+    
+    public int transformarTiempoSegundos(int horas, int minutos, int segundos){
+        int tiempo=0;
+        tiempo+=(horas*3600);
+        tiempo+=(minutos*60);
+        tiempo+=segundos;
+        
+        return tiempo;
     }
 
     public ArrayList<Entrenador> getEntrenadores() {

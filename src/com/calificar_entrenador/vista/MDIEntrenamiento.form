@@ -403,7 +403,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                              <Component id="Agregar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
@@ -429,8 +429,8 @@
                           <Component id="lblEdad" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Agregar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                      <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="78" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -457,12 +457,12 @@
             </Component>
             <Component class="javax.swing.JSpinner" name="spnEdad">
             </Component>
-            <Component class="javax.swing.JButton" name="Agregar">
+            <Component class="javax.swing.JButton" name="btnAgregar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -499,20 +499,20 @@
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="Agregar1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgregarCiclista" min="-2" max="-2" attributes="0"/>
                           <Component id="spnEdadCic" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jSpinner1" min="-2" max="-2" attributes="0"/>
+                              <Component id="spnHoras" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHrs" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSpinner2" min="-2" max="-2" attributes="0"/>
+                              <Component id="spnMinutos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMin" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSpinner3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spnSegundos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSeg" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtNombreCiclista" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtDocumentoId" alignment="0" max="32767" attributes="0"/>
@@ -540,17 +540,19 @@
                           <Component id="lblEdadCic" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblHrs" alignment="1" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spnHoras" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spnSegundos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMin" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="spnMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSeg" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Agregar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAgregarCiclista" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -578,12 +580,12 @@
             </Component>
             <Component class="javax.swing.JSpinner" name="spnEdadCic">
             </Component>
-            <Component class="javax.swing.JButton" name="Agregar1">
+            <Component class="javax.swing.JButton" name="btnAgregarCiclista">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Agregar1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarCiclistaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTiempo">
@@ -591,23 +593,23 @@
                 <Property name="text" type="java.lang.String" value="Tiempo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner1">
+            <Component class="javax.swing.JSpinner" name="spnHoras">
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner2">
+            <Component class="javax.swing.JSpinner" name="spnMinutos">
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner3">
+            <Component class="javax.swing.JSpinner" name="spnSegundos">
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="lblHrs">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hrs"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="lblMin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Min"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="lblSeg">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seg"/>
               </Properties>
