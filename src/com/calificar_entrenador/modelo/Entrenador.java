@@ -23,6 +23,9 @@ public class Entrenador extends Persona implements Serializable{
      * @return the calificacion
      */
     public float getCalificacion() {
+        if (calificacion>100) {
+            calificacion=100;
+        }
         return calificacion;
     }
 

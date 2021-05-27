@@ -17,9 +17,15 @@ import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -134,6 +140,37 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
     public void desbloquearMenus() {
         mnuArchivo.setEnabled(true);
         mnuInsertar.setEnabled(true);
+    }
+
+    public void diagramaCategorias() {
+        int cantidadCiclistasJunior=0;
+        int cantidadCiclistasPrejuvenil=0;
+        int cantidadCiclistasInfantil=0;
+        
+        for (int i = 0; i < controlEntrenamiento.getCiclistas().size(); i++) {
+            if (controlEntrenamiento.getCiclistas().get(i).getEdad() >= 13 && controlEntrenamiento.getCiclistas().get(i).getEdad() < 15) {
+                cantidadCiclistasInfantil++;
+            } else if (controlEntrenamiento.getCiclistas().get(i).getEdad() >= 15 && controlEntrenamiento.getCiclistas().get(i).getEdad() < 17) {
+                cantidadCiclistasPrejuvenil++;
+            } else {
+                cantidadCiclistasJunior++;
+            }
+        }
+        
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Infantil", new Integer(cantidadCiclistasInfantil));
+        dataset.setValue("Prejuvenil", new Integer(cantidadCiclistasPrejuvenil));
+        dataset.setValue("Junior", new Integer(cantidadCiclistasJunior));
+        
+        JFreeChart diagramaCat = ChartFactory.createPieChart("Categorías Ciclismo", dataset, true, true, false);
+        
+        ChartPanel panelDiagrama = new ChartPanel(diagramaCat);
+        
+        JFrame jfDiagrama = new JFrame("");
+        jfDiagrama.setSize(800, 600);
+        jfDiagrama.setVisible(true);
+        jfDiagrama.add(panelDiagrama);
+        
     }
 
     /**
@@ -580,6 +617,11 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
 
         mnuCategorias.setMnemonic('t');
         mnuCategorias.setText("Diagrama categorías");
+        mnuCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCategoriasActionPerformed(evt);
+            }
+        });
         mnuInsertar.add(mnuCategorias);
 
         menuBar.add(mnuInsertar);
@@ -698,6 +740,10 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
         mejorEntrenador = controlEntrenamiento.mejorEntrenador();
         JOptionPane.showMessageDialog(null, "El Mejor entrenador del plantel es: " + mejorEntrenador.getNombre() + ". \nCon una calificación de: " + mejorEntrenador.getCalificacion());
     }//GEN-LAST:event_mnuMejorEntrenadorActionPerformed
+
+    private void mnuCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCategoriasActionPerformed
+        diagramaCategorias();
+    }//GEN-LAST:event_mnuCategoriasActionPerformed
 
     /**
      * @param args the command line arguments
