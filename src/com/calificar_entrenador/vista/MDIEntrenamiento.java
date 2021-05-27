@@ -557,6 +557,11 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
 
         mnuMejorEntrenador.setMnemonic('a');
         mnuMejorEntrenador.setText("Mejor entrenador");
+        mnuMejorEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMejorEntrenadorActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuMejorEntrenador);
 
         mnuSalir.setMnemonic('x');
@@ -683,8 +688,16 @@ public class MDIEntrenamiento extends javax.swing.JFrame {
             llenarCiclistas();
             llenarEntrenadores();
             jifAgregarCiclista.doDefaultCloseAction();
+            controlEntrenamiento.llenarFichero();
         }
     }//GEN-LAST:event_btnAgregarCiclistaActionPerformed
+
+    private void mnuMejorEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMejorEntrenadorActionPerformed
+        Entrenador mejorEntrenador;
+        controlEntrenamiento.calificarEntrenadores();
+        mejorEntrenador = controlEntrenamiento.mejorEntrenador();
+        JOptionPane.showMessageDialog(null, "El Mejor entrenador del plantel es: " + mejorEntrenador.getNombre() + ". \nCon una calificación de: " + mejorEntrenador.getCalificacion());
+    }//GEN-LAST:event_mnuMejorEntrenadorActionPerformed
 
     /**
      * @param args the command line arguments

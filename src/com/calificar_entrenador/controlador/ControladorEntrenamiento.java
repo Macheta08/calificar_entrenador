@@ -10,7 +10,9 @@ import com.calificar_entrenador.modelo.Entrenador;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -121,38 +123,88 @@ public class ControladorEntrenamiento {
 
         }
     }
-    
-    public boolean agregarEntrenador(String nombre, String cedula, int edad){
-        if (nombre.length()>0 && cedula.length()>0 && edad > 18) {
+
+    public boolean agregarEntrenador(String nombre, String cedula, int edad) {
+        if (nombre.length() > 0 && cedula.length() > 0 && edad > 18) {
             Entrenador nuevoEnt = new Entrenador(nombre, cedula, edad);
             entrenadores.add(nuevoEnt);
             return true;
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "No se agregó el entrenador");
             return false;
         }
-    }  
-    
-    public boolean agregarCiclista(String nombre, String cedula, int edad, int tiempo){
-        if (nombre.length()>0 && cedula.length()>0 && edad >12 && edad <=18) {
+    }
+
+    public boolean agregarCiclista(String nombre, String cedula, int edad, int tiempo) {
+        if (nombre.length() > 0 && cedula.length() > 0 && edad > 12 && edad <= 18) {
             Ciclista nuevoCic = new Ciclista(nombre, cedula, edad, tiempo);
             ciclistas.add(nuevoCic);
             return true;
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "No se agregó el ciclista");
             return false;
         }
-    }  
-    
-    public int transformarTiempoSegundos(int horas, int minutos, int segundos){
-        int tiempo=0;
-        tiempo+=(horas*3600);
-        tiempo+=(minutos*60);
-        tiempo+=segundos;
-        
+    }
+
+    public int transformarTiempoSegundos(int horas, int minutos, int segundos) {
+        int tiempo = 0;
+        tiempo += (horas * 3600);
+        tiempo += (minutos * 60);
+        tiempo += segundos;
+
         return tiempo;
+    }
+
+    public void llenarFichero() {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        String nombreAgregar = "";
+        String cedulaAgregar = "";
+        int edadAgregar = 0;
+        int tiempoAgregar = 0;
+        try {
+            fichero = new FileWriter("personas.txt", true);
+            pw = new PrintWriter(fichero);
+
+            for (int i = 0; i < CANTIDAD_PERSONAS_GRUPO; i++) {
+                if (i == 0) {
+                    nombreAgregar = entrenadores.get(entrenadores.size() - 1).getNombre();
+                    cedulaAgregar = entrenadores.get(entrenadores.size() - 1).getCedula();
+                    edadAgregar = entrenadores.get(entrenadores.size() - 1).getEdad();
+                    pw.println(nombreAgregar + ":" + cedulaAgregar + ":" + edadAgregar);
+                } else {
+                    nombreAgregar = ciclistas.get(ciclistas.size() - i).getNombre();
+                    cedulaAgregar = ciclistas.get(ciclistas.size() - i).getCedula();
+                    edadAgregar = ciclistas.get(ciclistas.size() - i).getEdad();
+                    tiempoAgregar = ciclistas.get(ciclistas.size() - 1).getTiempo();
+                    pw.println("\n" + nombreAgregar + ":" + cedulaAgregar + ":" + edadAgregar + ":" + tiempoAgregar);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error abriendo el archivo");
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                System.out.println("Error cerrando el archivo");
+            }
+        }
+
+    }
+    
+    public Entrenador mejorEntrenador(){
+        Entrenador mejorEntrenador=entrenadores.get(0);
+        for (int i = 1; i < entrenadores.size(); i++) {
+            if (entrenadores.get(i).getCalificacion()>entrenadores.get(i-1).getCalificacion()) {
+                mejorEntrenador=entrenadores.get(i);
+            }
+        }
+        return mejorEntrenador;
     }
 
     public ArrayList<Entrenador> getEntrenadores() {
